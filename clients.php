@@ -1,23 +1,27 @@
 <?php
     session_start();
+    if( $_SESSION['loggedInUser'] == NULL ) {
+      // send them to the login page
+      header("Location: index.php");
+    }
     $_SESSION['title']= "Client";
     include('includes/header.php');
     if(isset($_GET['alert'])){
         if($_GET['alert']=='updateSucess'){
-            echo "<div class='alert alert-success' role='alert'>Sucessfully updated client details<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true''>&times;</span></button> </div>";
-        } 
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>Sucessfully updated client details<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true''>&times;</span></button> </div>";
+        }
         if($_GET['alert']=='deleteSucess'){
-            echo "<div class='alert alert-success' role='alert'>Client deleted.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true''>&times;</span></button> </div>";
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>Client deleted.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true''>&times;</span></button> </div>";
         }
         if($_GET['alert']=='addSucess'){
-            echo "<div class='alert alert-success' role='alert'>Client added sucessfully.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true''>&times;</span></button> </div>";
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>Client added sucessfully.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true''>&times;</span></button> </div>";
         }
     }
     if(isset($_POST['edit'])){
         header('Location:edit.php');
     }
 ?>
-<h1>Client Address Book</h1>
+<h1 id="form-style">Client Address Book</h1>
 <div class="table-responsive">
 <table class='table table-bordered'>
     <thead class='thead-dark'>
@@ -32,13 +36,13 @@
         </tr>
     </thead>
 <?php
-    include('includes/connection.php'); 
+    include('includes/connection.php');
     $uid = $_SESSION['uid'];
-    $query = "select * from client where uid='$uid'";
+    $query = "select * from clients where uid='$uid'";
     $result = mysqli_query($conn,$query);
-    if( mysqli_num_rows($result) > 0){
+    if($result){
         while( $row = mysqli_fetch_assoc($result) ){
-            $id = $row["cid"];
+            $id = $row["id"];
             echo "<tbody>
                 <tr>
                 <td>".$row["name"]."</td>
@@ -52,14 +56,13 @@
                 </tbody>";
         }
     } else {
-        echo "<div class='alert alert-warning' role='alert'>You have no clients! </div>";  
+        echo "<div class='alert alert-warning' role='alert'>You have no clients! </div>";
     }
     mysqli_close($conn);
 ?>
     </table>
     </div>
     <div class='text-center'><a role="button" class="btn btn-success" href="add.php"><img src="img/211872-16.png"> Add Client</a></div>
-<?php 
-   include('includes/footer.php');  
+<?php
+   include('includes/footer.php');
 ?>
-    

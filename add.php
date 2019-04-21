@@ -12,16 +12,17 @@
         $address = validateFormData($_POST["address"]);
         $company = validateFormData($_POST["company"]);
         $notes = validateFormData($_POST["notes"]);
-        $query = "insert into client(uid,name,email,phone,address,company,notes) values('$uid','$name','$email','$phone','$address','$company','$notes')";
+        $query = "insert into clients(uid,name,email,phone,address,company,notes) values('$uid','$name','$email','$phone','$address','$company','$notes')";
             if( mysqli_query($conn,$query) ) {
                 header("Location:clients.php?alert=addSucess");
             }else{
-                echo "<div class='alert alert-danger' role='alert'>Not Inserted <br>". mysqli_error($conn)."</div>";
+                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Not Inserted <br>". mysqli_error($conn)."</div>";
             }
             mysqli_close($conn);
     }
 ?>
-<form  action="<?php echo htmlspecialchars( $_SERVER["PHP_SELF"]); ?>" method="post">
+<form  action="<?php echo htmlspecialchars( $_SERVER["PHP_SELF"]); ?>" method="post" id="form-style">
+  <h1 class="text-center">Add your client</h1><br>
   <div class="row">
     <div class="col mb-3">
       <label for="validationCustom01">Name</label>

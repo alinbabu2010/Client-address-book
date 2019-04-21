@@ -5,11 +5,11 @@
     include('includes/header.php'); 
     include('includes/connection.php');
     include('includes/functions.php');
-    $query = "select * from client where cid='$cid'";
+    $query = "select * from clients where id='$cid'";
     $result = mysqli_query($conn,$query);
-    if( mysqli_num_rows($result) > 0){
+    if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result); 
-            $_SESSION['cid']=$row["cid"];
+            $_SESSION['cid']=$row["id"];
             $name=$row["name"];
             $email=$row["email"];
             $phone=$row["phone"];
@@ -25,19 +25,19 @@
         $address1 = validateFormData($_POST["address"]);
         $company1 = validateFormData($_POST["company"]);
         $notes1 = validateFormData($_POST["notes"]);
-        $sql = "UPDATE client SET name='$name1', email='$email1', phone=$phone1, address='$address1', company='$company1', notes='$notes1' WHERE cid='$id' ";
+        $sql = "UPDATE clients SET name='$name1', email='$email1', phone=$phone1, address='$address1', company='$company1', notes='$notes1' WHERE id='$id' ";
         $result = mysqli_query( $conn,$sql );
         if( $result ) {
             header("Location:clients.php?alert=updateSucess");
         }
         else{
-            echo "<div class='alert alert-danger' role='alert'>Update unsucessfull".mysqli_error($conn)."</div>";
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Update unsucessfull".mysqli_error($conn)."</div>";
         }
         
     }
     if(isset($_POST['delete'])){  
             $id=$_SESSION['cid'];
-            $sql = "delete from client where cid='$id' ";
+            $sql = "delete from clients where id='$id' ";
             $result = mysqli_query( $conn,$sql );
             if( $result ) {
                 header("Location:clients.php?alert=deleteSucess");
@@ -49,7 +49,7 @@
     mysqli_close($conn);
 ?>
 
-<form action="<?php echo htmlspecialchars( $_SERVER["PHP_SELF"]); ?>" method="post">
+<form action="<?php echo htmlspecialchars( $_SERVER["PHP_SELF"]); ?>" method="post" id="form-style">
         <div class="text-center font-weight-bold bg-secondary text-white"> Client ID : <?php echo $_SESSION['cid']; ?></div>
       <div class="row">
         <div class="col mb-3">
