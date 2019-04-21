@@ -1,0 +1,39 @@
+body {
+  background-color: #f9ceb6;
+}
+
+body nav {
+  background-color: #4f1c00;
+}
+#nav-button{
+  margin-right: 10px;
+  color: yellow;
+}
+#heading {
+  margin: 20px;
+  color: #992b00;
+}
+#form-style {
+  margin-top: 10%;
+}
+#form-style p {
+  color: #992b00;
+}
+
+#text-logout {
+  margin: 20px;
+  color: #992b00;
+}
+
+.font-color {
+  color: #7c0c0c;
+}
+
+.font-color:hover {
+  color: #af0e0e;
+}
+
+#footer-color {
+  background-color: #ff9459;
+  color: #7c0c0c;
+}
